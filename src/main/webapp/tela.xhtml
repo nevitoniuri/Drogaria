@@ -1,19 +1,51 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Projeto com Componentes</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Projeto com Componentes</title>
 </h:head>
 <h:body>
-	<h:outputText value="Exemplo de Projeto de Componentes"/>
+	<h:outputText value="Exemplo de Projeto de Componentes" />
 	<h:form>
-		<h:outputLabel value="Nome: "/>
-		<h:inputText maxlength="50" size="30"/>
-		
-		<h:outputLabel value="Senha: "/>
-		<h:inputSecret maxlength="8" size="10"/>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Nome: " />
+			<h:inputText maxlength="50" size="30" />
+
+			<h:outputLabel value="Senha: " />
+			<h:inputSecret maxlength="8" size="10" />
+
+			<h:outputLabel value="Observação: " />
+			<h:inputTextarea cols="30" rows="5" />
+
+			<h:outputLabel value="Interesses: " />
+			<h:selectManyCheckbox>
+				<f:selectItem itemValue="1" itemLabel="Viagem" />
+				<f:selectItem itemValue="2" itemLabel="Livros" />
+				<f:selectItem itemValue="3" itemLabel="Games" />
+				<f:selectItem itemValue="4" itemLabel="Cinema" />
+			</h:selectManyCheckbox>
+
+			<h:outputLabel value="Estado Civil: " />
+			<h:selectOneRadio>
+				<f:selectItem itemValue="1" itemLabel="Solteiro" />
+				<f:selectItem itemValue="2" itemLabel="Casado" />
+				<f:selectItem itemValue="3" itemLabel="Divorciado" />
+			</h:selectOneRadio>
+
+			<h:outputLabel value="Estado: " />
+			<h:selectOneMenu>
+				<f:selectItem itemValue="1" itemLabel="CE" />
+				<f:selectItem itemValue="2" itemLabel="RJ" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<h:commandButton value="Gravar" />
+			<h:commandLink value="Voltar" />
+		</h:panelGrid>
 	</h:form>
 </h:body>
 </html>
