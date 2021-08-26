@@ -1,3 +1,2 @@
-# JSF-Components
-Repositório criado para apoio.
-É uma base de projetos Maven com JSF
+# Drogaria
+Repositório criado para estudos de Java Web do Padawan Tech.
