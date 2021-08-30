@@ -1,12 +1,37 @@
 package br.com.drogaria.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Produto {
+
+	// atributos
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
+
+	@Column(nullable = false)
 	private String descricao;
+
+	@Column(nullable = false)
 	private int quantidade;
+
+	@Column(nullable = false)
 	private double preco;
+
+	@ManyToOne
 	private Fabricante fabricante;
 
+	// construtores-------------------
+	public Produto(String descricao, int quantidade, double preco, Fabricante fabricante) {
+
+		this.descricao = descricao;
+		this.quantidade = quantidade;
+		this.preco = preco;
+		this.fabricante = fabricante;
+	}
+
+	// getters and setters--------------
 	public int getCodigo() {
 		return codigo;
 	}

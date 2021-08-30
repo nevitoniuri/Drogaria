@@ -1,11 +1,28 @@
 package br.com.drogaria.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Fabricante {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
-	private String descricao;
 
-	public Fabricante() {
+	@Column(nullable = false)
+	private String nome;
 
+	public Fabricante(String nome) {
+
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public int getCodigo() {
@@ -14,13 +31,5 @@ public class Fabricante {
 
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 }
