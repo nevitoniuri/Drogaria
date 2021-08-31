@@ -4,19 +4,28 @@ import javax.persistence.*;
 
 @Entity
 public class Fabricante {
-
+	
+	//atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
 
 	@Column(nullable = false)
 	private String nome;
-
+	
+	
+	//Construtores
 	public Fabricante(String nome) {
 
 		this.nome = nome;
 	}
+	
+	public Fabricante() {
+		
+	}
 
+	
+	//getters & setters
 	public String getNome() {
 		return nome;
 	}

@@ -30,6 +30,10 @@ public class Produto {
 		this.preco = preco;
 		this.fabricante = fabricante;
 	}
+	
+	public Produto() {
+		
+	}
 
 	// getters and setters--------------
 	public int getCodigo() {
