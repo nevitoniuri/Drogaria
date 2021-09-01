@@ -16,7 +16,6 @@ public class Fabricante {
 	
 	//Construtores
 	public Fabricante(String nome) {
-
 		this.nome = nome;
 	}
 	
