@@ -10,9 +10,13 @@ public class CadastroFabricante {
 		
 		Fabricante f1 = new Fabricante("Dell");
 		Fabricante f2 = new Fabricante("Acer");
+		Fabricante f3 = new Fabricante("Positivo");
+		Fabricante f4 = new Fabricante("Logitech");
 
 		FabricanteDAO fDao = new FabricanteDAO();
-		fDao.cadastrar(f1);
-		fDao.cadastrar(f2);
+		fDao.cadastrarFabricante(f1);
+		fDao.cadastrarFabricante(f2);
+		fDao.cadastrarFabricante(f3);
+		fDao.cadastrarFabricante(f4);
 	}
 }

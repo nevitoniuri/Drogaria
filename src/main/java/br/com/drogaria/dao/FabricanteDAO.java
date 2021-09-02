@@ -9,11 +9,7 @@ public class FabricanteDAO {
 
 	private EntityManager em;
 
-//	public FabricanteDAO(EntityManager em) {
-//		this.em = em;
-//	}
-
-	public void cadastrar(Fabricante fabricante) {
+	public void cadastrarFabricante(Fabricante fabricante) {
 		try {
 			em = JPAUtil.getEntityManager(); ///sempre colocar nos métodos...
 			em.getTransaction().begin();
@@ -28,9 +24,28 @@ public class FabricanteDAO {
 		}
 	}
 
-	public Fabricante buscarPorId(int id) {
-		em = JPAUtil.getEntityManager(); ///sempre colocar nos métodos...
+	public Fabricante buscarFabricante(int id) {
+		if(em == null || !em.isOpen()) {
+			em = JPAUtil.getEntityManager();  /// sempre colocar nos métodos...
+		}
 		return em.find(Fabricante.class, id);
 	}
+	
+	public void removerFabricante(int id) {
+		try {
+			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em.getTransaction().begin();
+			Fabricante buscaFabricante = this.buscarFabricante(id);
+			System.out.println(buscaFabricante);
+			this.em.remove(buscaFabricante);
+			em.getTransaction().commit();
+			System.out.println("Fabricante " + id + " removido.");
 
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
 }

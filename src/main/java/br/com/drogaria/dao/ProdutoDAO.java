@@ -6,12 +6,12 @@ import br.com.drogaria.domain.Produto;
 import br.com.drogaria.util.JPAUtil;
 
 public class ProdutoDAO {
-	
+
 	private EntityManager em;
 
-	public void cadastrar(Produto produto) {
+	public void cadastrarProduto(Produto produto) {
 		try {
-			em = JPAUtil.getEntityManager(); ///sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
 			em.getTransaction().begin();
 			this.em.persist(produto);
 			em.getTransaction().commit();
@@ -22,14 +22,29 @@ public class ProdutoDAO {
 		}
 
 	}
-	
-	public void remover(Produto produto) {
-		em = JPAUtil.getEntityManager(); ///sempre colocar nos métodos...
-		this.em.remove(produto);
-	}
-	public void atualizar(Produto produto) {
-		em = JPAUtil.getEntityManager(); ///sempre colocar nos métodos...
-		this.em.merge(produto);
+
+	public Produto buscarProduto(int id) {
+		if(em == null || !em.isOpen()) {
+			em = JPAUtil.getEntityManager();  /// sempre colocar nos métodos...
+		}
+		return em.find(Produto.class, id);
 	}
 
+	public void removerProduto(int id) {
+		try {
+			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em.getTransaction().begin();
+			Produto buscaProduto = this.buscarProduto(id);
+			System.out.println(buscaProduto);
+			this.em.remove(buscaProduto);
+			em.getTransaction().commit();
+			System.out.println("Produto " + id + " removido.");
+
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
 }
