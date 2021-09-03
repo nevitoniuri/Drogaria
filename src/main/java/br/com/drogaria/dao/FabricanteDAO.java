@@ -11,7 +11,7 @@ public class FabricanteDAO {
 
 	public void cadastrarFabricante(Fabricante fabricante) {
 		try {
-			em = JPAUtil.getEntityManager(); ///sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
 			em.getTransaction().begin();
 			this.em.persist(fabricante);
 			em.getTransaction().commit();
@@ -25,12 +25,12 @@ public class FabricanteDAO {
 	}
 
 	public Fabricante buscarFabricante(int id) {
-		if(em == null || !em.isOpen()) {
-			em = JPAUtil.getEntityManager();  /// sempre colocar nos métodos...
+		if (em == null || !em.isOpen()) {
+			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
 		}
 		return em.find(Fabricante.class, id);
 	}
-	
+
 	public void removerFabricante(int id) {
 		try {
 			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
@@ -40,6 +40,22 @@ public class FabricanteDAO {
 			this.em.remove(buscaFabricante);
 			em.getTransaction().commit();
 			System.out.println("Fabricante " + id + " removido.");
+
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
+
+	public void atualizarFabricante(Fabricante fabricante) {
+		try {
+			em = JPAUtil.getEntityManager();
+			
+			em.getTransaction().begin();
+			this.em.merge(fabricante);
+			em.getTransaction().commit();
 
 		} catch (Exception e) {
 			em.getTransaction().rollback();
