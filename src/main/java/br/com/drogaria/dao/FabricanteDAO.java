@@ -70,7 +70,7 @@ public class FabricanteDAO {
 		em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
 
 		try {
-			String queryList = "SELECT f FROM Fabricante f ORDER BY descricao ASC";
+			String queryList = "SELECT f FROM Fabricante f ORDER BY codigo ASC";
 			List<Fabricante> fabricanteList = em.createQuery(queryList, Fabricante.class).getResultList();
 			return fabricanteList;
 		} catch (Exception ex) {

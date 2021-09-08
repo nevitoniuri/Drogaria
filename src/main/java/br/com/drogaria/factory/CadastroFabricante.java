@@ -18,5 +18,8 @@ public class CadastroFabricante {
 		fDao.cadastrarFabricante(f2);
 		fDao.cadastrarFabricante(f3);
 		fDao.cadastrarFabricante(f4);
+		
+		
+		
 	}
 }
