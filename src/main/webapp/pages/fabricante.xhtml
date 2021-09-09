@@ -12,8 +12,9 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<h:form>
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
+		<h:form id="formListaFabricantes">
+			<p:dataTable id="tabelaListaFabricantes"
+				emptyMessage="Nenhum registro encontrado."
 				value="#{mbFabricante.listaFabricantes}" var="item" paginator="true"
 				rows="10">
 
@@ -30,21 +31,29 @@
 
 				<f:facet name="footer">
 					<p:commandButton value="Cadastrar Novo"
-						onclick="PF('dlgFabNovo').show();" />
+						actionListener="#{mbFabricante.prepararNovoFabricante()}"
+						oncomplete="PF('dlgFabNovo').show();" 
+						update=":formFabNovo:panelFabNovo"/>
 				</f:facet>
 			</p:dataTable>
 		</h:form>
 
 		<p:dialog widgetVar="dlgFabNovo" closable="false" draggable="false"
-			resizable="false" modal="true" appendTo="@(body)" header="Cadastrar novo Fabricante">
-			<h:form>
-				<h:panelGrid columns="2">
+			resizable="false" modal="true" appendTo="@(body)"
+			header="Cadastrar novo Fabricante">
+			<h:form id="formFabNovo">
+				<h:panelGrid id="panelFabNovo" columns="2">
 					<p:outputLabel value="Descrição" />
-					<p:inputText size="30" maxlength="50" />
+					<p:inputText size="30" maxlength="50"
+						value="#{mbFabricante.fabricante.nome}" />
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<p:commandButton value="Gravar" />
-					<p:commandButton value="Cancelar" onclick="PF('dlgFabNovo').hide();" />
+					<p:commandButton value="Gravar"
+						actionListener="#{mbFabricante.cadastrarNovoFabricante()}"
+						oncomplete="PF('dlgFabNovo').hide();"
+						update=":formListaFabricantes:tabelaListaFabricantes :msgGlobal" />
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgFabNovo').hide();" />
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
