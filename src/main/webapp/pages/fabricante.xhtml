@@ -28,12 +28,17 @@
 					headerText="Descrição">
 					<h:outputText value="#{item.nome}" />
 				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{mbFabricante.prepararExcluir}"
+						oncomplete="PF('dlgFabExcluir').show();" update=":formFabExcluir:pnlFabExcluir" />
+				</p:column>
 
 				<f:facet name="footer">
 					<p:commandButton value="Cadastrar Novo"
 						actionListener="#{mbFabricante.prepararNovoFabricante()}"
-						oncomplete="PF('dlgFabNovo').show();" 
-						update=":formFabNovo:panelFabNovo"/>
+						oncomplete="PF('dlgFabNovo').show();"
+						update=":formFabNovo:panelFabNovo" />
 				</f:facet>
 			</p:dataTable>
 		</h:form>
@@ -56,6 +61,31 @@
 						onclick="PF('dlgFabNovo').hide();" />
 				</h:panelGrid>
 			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgFabExcluir" closable="false" draggable="false"
+			resizable="false" modal="true" appendTo="@(body)"
+			header="Fabricante-Excluir">
+
+			<h:form id="formFabExcluir">
+
+				<h:panelGrid id="pnlFabExcluir" columns="2">
+					<h:outputText value="Código:" />
+					<h:outputText value="#{mbFabricante.fabricante.codigo}" />
+
+					<h:outputText value="Descrição" />
+					<h:outputText value="#{mbFabricante.fabricante.nome}" />
+				</h:panelGrid>
+				<h:panelGrid>
+					<h:commandButton
+						actionListener="#{mbFabricante.excluirFabricante()}"
+						value="Excluir" oncomplete="PF('dlgFabExcluir').hide();"
+						update=":formListaFabricantes:tabelaListaFabricantes :msgGlobal" />
+					<h:commandButton value="Cancelar"
+						onclick="PF('dlgFabExcluir').hide();" />
+				</h:panelGrid>
+			</h:form>
+
 		</p:dialog>
 
 	</ui:define>

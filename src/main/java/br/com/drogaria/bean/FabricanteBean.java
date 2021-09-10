@@ -1,6 +1,5 @@
 package br.com.drogaria.bean;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import br.com.drogaria.dao.FabricanteDAO;
 import br.com.drogaria.domain.Fabricante;
+import br.com.drogaria.exception.DaoException;
 import br.com.drogaria.util.JPAUtil;
 import br.com.drogaria.util.JSFUtil;
 
@@ -19,6 +19,8 @@ import br.com.drogaria.util.JSFUtil;
 public class FabricanteBean {
 	private Fabricante fabricante;
 	private ListDataModel<Fabricante> listaFabricantes; // utilizado para mostrar dados na tabela
+
+//	private EntityManager em;
 
 	public Fabricante getFabricante() {
 		return fabricante;
@@ -43,7 +45,7 @@ public class FabricanteBean {
 			FabricanteDAO fDao = new FabricanteDAO();
 			ArrayList<Fabricante> lista = (ArrayList<Fabricante>) fDao.listarFabricantes();
 			listaFabricantes = new ListDataModel<Fabricante>(lista);
-		} catch (SQLException ex) {
+		} catch (DaoException ex) {
 			ex.printStackTrace();
 			JSFUtil.adicionarMensagemErro(ex.getMessage());
 		}
@@ -61,17 +63,38 @@ public class FabricanteBean {
 
 			ArrayList<Fabricante> lista = (ArrayList<Fabricante>) fDao.listarFabricantes();
 			listaFabricantes = new ListDataModel<Fabricante>(lista);
-			
+
 			JSFUtil.adicionarMensagemSucesso("Fabricante cadastrado com sucesso.");
-//			System.out.println("Fabricante cadastrado.");
-		} catch (SQLException ex) {
+
+		} catch (DaoException ex) {
 			ex.printStackTrace();
-			em.getTransaction().rollback();
-			
 			JSFUtil.adicionarMensagemErro(ex.getMessage());
-//			System.out.println("Não foi possível cadastrar o fabricante.");
+			
 		} finally {
 			em.close();
 		}
+	}
+
+	public void prepararExcluir() {
+		fabricante = listaFabricantes.getRowData();
+	}
+
+	public void excluirFabricante() {
+
+		try {
+			FabricanteDAO fDao = new FabricanteDAO();
+
+			fDao.removerFabricante(fabricante.getCodigo());
+
+			ArrayList<Fabricante> lista = (ArrayList<Fabricante>) fDao.listarFabricantes();
+			listaFabricantes = new ListDataModel<Fabricante>(lista);
+
+			JSFUtil.adicionarMensagemSucesso("Fabricante excluído com sucesso");
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+
 	}
 }
