@@ -60,7 +60,7 @@ public class FabricanteBean {
 		fabricante = new Fabricante();
 	}
 
-	public void cadastrarNovoFabricante() { // função site
+	public void cadastrarNovoFabricante() { 
 
 		try {
 			FabricanteDAO fDao = new FabricanteDAO();
@@ -89,7 +89,7 @@ public class FabricanteBean {
 
 			listaFabricantes = fDao.listarFabricantes();
 
-			JSFUtil.adicionarMensagemSucesso("Fabricante excluído com sucesso");
+			JSFUtil.adicionarMensagemSucesso("Fabricante excluido com sucesso");
 
 		} catch (DaoException e) {
 			e.printStackTrace();

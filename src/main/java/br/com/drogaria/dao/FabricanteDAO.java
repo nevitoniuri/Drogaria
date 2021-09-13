@@ -14,7 +14,7 @@ public class FabricanteDAO {
 
 	public void cadastrarFabricante(Fabricante fabricante) throws DaoException {
 		try {
-			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar nos metodos...
 			em.getTransaction().begin();
 			this.em.persist(fabricante);
 			em.getTransaction().commit();
@@ -22,8 +22,8 @@ public class FabricanteDAO {
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
-			System.out.println("Não foi possível cadastrar o fabricante.");
-			throw new DaoException("Não foi possível cadastrar o fabricante.");
+			System.out.println("Nao foi possivel cadastrar o fabricante.");
+			throw new DaoException("Nao foi possivel cadastrar o fabricante.");
 		} finally {
 			em.close();
 		}
@@ -31,14 +31,14 @@ public class FabricanteDAO {
 
 	public Fabricante buscarFabricante(int id) {
 		if (em == null || !em.isOpen()) {
-			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar
 		}
 		return em.find(Fabricante.class, id);
 	}
 
 	public void removerFabricante(int id) throws DaoException{
 		try {
-			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar 
 			em.getTransaction().begin();
 			Fabricante buscaFabricante = this.buscarFabricante(id);
 			System.out.println(buscaFabricante);
@@ -49,7 +49,7 @@ public class FabricanteDAO {
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
-			throw new DaoException("Não foi possível remover o fabricante.");
+			throw new DaoException("Nao foi possivel remover o fabricante.");
 		} finally {
 			em.close();
 		}
@@ -66,7 +66,7 @@ public class FabricanteDAO {
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
-			throw new DaoException("Não foi possível atualizar o fabricante.");
+			throw new DaoException("Nao foi possivel atualizar o fabricante.");
 		} finally {
 			em.close();
 		}
@@ -74,7 +74,7 @@ public class FabricanteDAO {
 
 
 	public ArrayList<Fabricante> listarFabricantes() throws DaoException{  //estava List
-		em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+		em = JPAUtil.getEntityManager(); /// sempre colocar 
 
 		String queryList = "SELECT f FROM Fabricante f ORDER BY codigo ASC";
 		List<Fabricante> fabricanteList = em.createQuery(queryList, Fabricante.class).getResultList();
@@ -82,7 +82,7 @@ public class FabricanteDAO {
 	}
 
 	public List<Fabricante> buscarPorDesc(String desc) {
-		em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+		em = JPAUtil.getEntityManager(); /// sempre colocar
 		try {
 			String queryList = "SELECT f FROM Fabricante f WHERE f.descricao LIKE :descricao";
 			List<Fabricante> fabricanteList = em.createQuery(queryList, Fabricante.class)

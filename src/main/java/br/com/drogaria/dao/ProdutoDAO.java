@@ -11,14 +11,14 @@ public class ProdutoDAO {
 
 	public void cadastrarProduto(Produto produto) {
 		try {
-			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar 
 			em.getTransaction().begin();
 			this.em.persist(produto);
 			em.getTransaction().commit();
 			System.out.println("Produto cadastrado.");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("Não foi possível cadastrar o produto.");
+			System.out.println("Nao foi possivel cadastrar o produto.");
 		} finally {
 			em.close();
 		}
@@ -27,14 +27,14 @@ public class ProdutoDAO {
 
 	public Produto buscarProduto(int id) {
 		if(em == null || !em.isOpen()) {
-			em = JPAUtil.getEntityManager();  /// sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager();  /// sempre colocar
 		}
 		return em.find(Produto.class, id);
 	}
 
 	public void removerProduto(int id) {
 		try {
-			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
+			em = JPAUtil.getEntityManager(); /// sempre colocar
 			em.getTransaction().begin();
 			Produto buscaProduto = this.buscarProduto(id);
 			System.out.println(buscaProduto);
