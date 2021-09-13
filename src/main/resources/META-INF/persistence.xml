@@ -16,13 +16,23 @@
 		<properties>
 			<!-- Configuracoes do banco de dados -->
 			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://ec2-54-156-60-12.compute-1.amazonaws.com/d87hhbd4tfc70r" />
+			<property name="javax.persistence.jdbc.user"
+				value="irmrcvwsmihgfb" />
+			<property name="javax.persistence.jdbc.password"
+				value="736dc46fd81ca213e6b790f3c0e0b659fbd1090ffbfd6b39ce1a5d98bc92aa9d" />
+			<property name="javax.persistence.jdbc.driver"
+				value="org.postgresql.Driver" />
+
+			<!-- Configuracoes do banco de dados 
+			<property name="javax.persistence.jdbc.url"
 				value="jdbc:postgresql://localhost/Drogaria" />
 			<property name="javax.persistence.jdbc.user"
 				value="postgres" />
 			<property name="javax.persistence.jdbc.password"
 				value="123456" />
 			<property name="javax.persistence.jdbc.driver"
-				value="org.postgresql.Driver" />
+				value="org.postgresql.Driver" />-->
 
 
 			<!-- Configuracoes do Hibernate (os parametros so sao reconhecidos se 
