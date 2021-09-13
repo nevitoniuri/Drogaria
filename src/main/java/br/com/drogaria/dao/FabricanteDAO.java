@@ -1,5 +1,6 @@
 package br.com.drogaria.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -22,6 +23,7 @@ public class FabricanteDAO {
 			em.getTransaction().rollback();
 			e.printStackTrace();
 			System.out.println("Não foi possível cadastrar o fabricante.");
+			throw new DaoException("Não foi possível cadastrar o fabricante.");
 		} finally {
 			em.close();
 		}
@@ -34,7 +36,7 @@ public class FabricanteDAO {
 		return em.find(Fabricante.class, id);
 	}
 
-	public void removerFabricante(int id) {
+	public void removerFabricante(int id) throws DaoException{
 		try {
 			em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
 			em.getTransaction().begin();
@@ -47,12 +49,13 @@ public class FabricanteDAO {
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
+			throw new DaoException("Não foi possível remover o fabricante.");
 		} finally {
 			em.close();
 		}
 	}
 
-	public void atualizarFabricante(Fabricante fabricante) {
+	public void atualizarFabricante(Fabricante fabricante) throws DaoException{
 		try {
 			em = JPAUtil.getEntityManager();
 
@@ -63,18 +66,19 @@ public class FabricanteDAO {
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
+			throw new DaoException("Não foi possível atualizar o fabricante.");
 		} finally {
 			em.close();
 		}
 	}
 
 
-	public List<Fabricante> listarFabricantes() throws DaoException{
+	public ArrayList<Fabricante> listarFabricantes() throws DaoException{  //estava List
 		em = JPAUtil.getEntityManager(); /// sempre colocar nos métodos...
 
 		String queryList = "SELECT f FROM Fabricante f ORDER BY codigo ASC";
 		List<Fabricante> fabricanteList = em.createQuery(queryList, Fabricante.class).getResultList();
-		return fabricanteList;
+		return (ArrayList<Fabricante>) fabricanteList;
 	}
 
 	public List<Fabricante> buscarPorDesc(String desc) {

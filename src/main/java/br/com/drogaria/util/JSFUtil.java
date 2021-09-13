@@ -14,7 +14,7 @@ public class JSFUtil {
 
 	public static void adicionarMensagemErro(String mensagem) {
 
-		FacesMessage msgError = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, mensagem);
+		FacesMessage msgError = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, mensagem);
 		FacesContext contexto = FacesContext.getCurrentInstance();
 
 		contexto.addMessage(null, msgError);
