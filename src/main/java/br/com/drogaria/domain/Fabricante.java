@@ -3,11 +3,13 @@ package br.com.drogaria.domain;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "fabricante")
 public class Fabricante {
 	
 	//atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "codigo_fabricante")
 	private int codigo;
 
 	@Column(nullable = false)
