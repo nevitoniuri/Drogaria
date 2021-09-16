@@ -14,6 +14,8 @@ import br.com.drogaria.util.JSFUtil;
 @ViewScoped
 public class ProdutoBean {
 	private ArrayList<Produto> listaProdutos;
+	private ArrayList<Produto> listaProdutosFiltrados;
+	
 
 	public ArrayList<Produto> getListaProdutos() {
 		return listaProdutos;
@@ -21,6 +23,14 @@ public class ProdutoBean {
 
 	public void setListaProdutos(ArrayList<Produto> listaProdutos) {
 		this.listaProdutos = listaProdutos;
+	}
+
+	public ArrayList<Produto> getListaProdutosFiltrados() {
+		return listaProdutosFiltrados;
+	}
+
+	public void setListaProdutosFiltrados(ArrayList<Produto> listaProdutosFiltrados) {
+		this.listaProdutosFiltrados = listaProdutosFiltrados;
 	}
 
 	public void carregarListagem() {

@@ -77,7 +77,7 @@ public class ProdutoDAO {
 	public ArrayList<Produto> listarProdutos() throws DaoException{  //estava List
 		em = JPAUtil.getEntityManager(); /// sempre colocar 
 
-		String queryList = "SELECT f FROM produto f ORDER BY codigo_produto ASC";
+		String queryList = "select p from Produto p inner join fetch p.fabricante f";
 		List<Produto> produtoList = em.createQuery(queryList, Produto.class).getResultList();
 		return (ArrayList<Produto>) produtoList;
 	}
