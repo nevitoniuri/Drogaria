@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.drogaria.dao.FabricanteDAO;
 import br.com.drogaria.dao.ProdutoDAO;
+import br.com.drogaria.domain.Fabricante;
 import br.com.drogaria.domain.Produto;
 import br.com.drogaria.exception.DaoException;
 import br.com.drogaria.util.JSFUtil;
@@ -15,8 +17,12 @@ import br.com.drogaria.util.JSFUtil;
 public class ProdutoBean {
 	private ArrayList<Produto> listaProdutos;
 	private ArrayList<Produto> listaProdutosFiltrados;
-	
 
+	private ArrayList<Fabricante> comboFabricantes;
+
+	private Produto produto;
+
+	// getters and setters
 	public ArrayList<Produto> getListaProdutos() {
 		return listaProdutos;
 	}
@@ -33,6 +39,26 @@ public class ProdutoBean {
 		this.listaProdutosFiltrados = listaProdutosFiltrados;
 	}
 
+	public ArrayList<Fabricante> getComboFabricantes() {
+		return comboFabricantes;
+	}
+
+	public void setComboFabricantes(ArrayList<Fabricante> comboFabricantes) {
+		this.comboFabricantes = comboFabricantes;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
+
+	// getters and setters//
+	
+	//methods
+
 	public void carregarListagem() {
 
 		try {
@@ -44,5 +70,33 @@ public class ProdutoBean {
 			JSFUtil.adicionarMensagemErro(ex.getMessage());
 		}
 
+	}
+
+	public void prepararNovoProduto() {
+		produto = new Produto();
+		FabricanteDAO fDao = new FabricanteDAO();
+
+		try {
+			comboFabricantes = fDao.listarFabricantes();
+		} catch (DaoException ex) {
+			ex.printStackTrace();
+			JSFUtil.adicionarMensagemErro(ex.getMessage());
+		}
+	}
+	
+	public void novoProduto() {
+		ProdutoDAO pDao = new ProdutoDAO();
+		
+		try {
+			pDao.cadastrarProduto(produto);
+			
+			listaProdutos = pDao.listarProdutos();
+			
+			JSFUtil.adicionarMensagemSucesso("Produto salvo com Sucesso");
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
 	}
 }

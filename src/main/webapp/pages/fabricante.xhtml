@@ -13,19 +13,20 @@
 
 	<ui:define name="conteudo">
 		<h:form id="formListaFabricantes">
-			<p:dataTable id="tabelaListaFabricantes" widgetVar="tabelaFabricantes"
+			<p:dataTable id="tabelaListaFabricantes"
+				widgetVar="tabelaFabricantes"
 				emptyMessage="Nenhum registro encontrado."
 				value="#{mbFabricante.listaFabricantes}" var="item" paginator="true"
 				rows="10" filteredValue="#{mbFabricante.listaFabricantesFiltrados}">
 
 				<f:facet name="header">Listagem de Fabricantes</f:facet>
 
-				<!-- filterBy="#{item.codigo}" sortBy="#{item.codigo}" -->
-				<p:column  headerText="Código">
+				<p:column headerText="Código" sortBy="#{item.codigo}" filterBy="#{item.codigo}">
 					<h:outputText value="#{item.codigo}" />
 				</p:column>
-				<!-- filterBy="#{item.nome}" sortBy="#{item.nome}" filterMatchMode="contains" -->
-				<p:column headerText="Descrição">
+
+				<p:column headerText="Descrição" sortBy="#{item.nome}" filterBy="#{item.nome}"
+					filterMatchMode="contains">
 					<h:outputText value="#{item.nome}" />
 				</p:column>
 				<p:column headerText="Opções">
@@ -92,7 +93,8 @@
 				<h:panelGrid columns="2">
 					<h:commandButton
 						actionListener="#{mbFabricante.excluirFabricante()}"
-						value="Excluir" oncomplete="PF('dlgFabExcluir').hide(); tabelaFabricantes.clearFilters();"
+						value="Excluir"
+						oncomplete="PF('dlgFabExcluir').hide(); tabelaFabricantes.clearFilters();"
 						update=":formListaFabricantes:tabelaListaFabricantes :msgGlobal" />
 					<h:commandButton value="Cancelar"
 						onclick="PF('dlgFabExcluir').hide();" />

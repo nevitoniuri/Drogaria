@@ -36,9 +36,9 @@ public class FabricanteDAO {
 		return em.find(Fabricante.class, id);
 	}
 
-	public void removerFabricante(int id) throws DaoException{
+	public void removerFabricante(int id) throws DaoException {
 		try {
-			em = JPAUtil.getEntityManager(); /// sempre colocar 
+			em = JPAUtil.getEntityManager(); /// sempre colocar
 			em.getTransaction().begin();
 			Fabricante buscaFabricante = this.buscarFabricante(id);
 			System.out.println(buscaFabricante);
@@ -55,7 +55,7 @@ public class FabricanteDAO {
 		}
 	}
 
-	public void atualizarFabricante(Fabricante fabricante) throws DaoException{
+	public void atualizarFabricante(Fabricante fabricante) throws DaoException {
 		try {
 			em = JPAUtil.getEntityManager();
 
@@ -72,13 +72,20 @@ public class FabricanteDAO {
 		}
 	}
 
+	public ArrayList<Fabricante> listarFabricantes() throws DaoException { // estava List
+		em = JPAUtil.getEntityManager(); /// sempre colocar
 
-	public ArrayList<Fabricante> listarFabricantes() throws DaoException{  //estava List
-		em = JPAUtil.getEntityManager(); /// sempre colocar 
+		try {
+			String queryList = "SELECT f FROM Fabricante f ORDER BY codigo_fabricante ASC";
+			List<Fabricante> fabricanteList = em.createQuery(queryList, Fabricante.class).getResultList();
+			return (ArrayList<Fabricante>) fabricanteList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException("Nao foi possivel listar os fabricantes.");
+		} finally {
+			em.close();
+		}
 
-		String queryList = "SELECT f FROM Fabricante f ORDER BY codigo_fabricante ASC";
-		List<Fabricante> fabricanteList = em.createQuery(queryList, Fabricante.class).getResultList();
-		return (ArrayList<Fabricante>) fabricanteList;
 	}
 
 	public List<Fabricante> buscarPorDesc(String desc) {

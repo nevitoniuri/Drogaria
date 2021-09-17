@@ -31,7 +31,7 @@ public class Produto {
 
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_fabricante")
-	private Fabricante fabricante;
+	private Fabricante fabricante = new Fabricante();
 
 	// construtores-------------------
 	public Produto(String descricao, int quantidade, double preco, Fabricante fabricante) {
