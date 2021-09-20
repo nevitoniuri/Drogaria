@@ -18,33 +18,58 @@
 		</f:event>
 
 		<h:form id="frmProdListagem">
-			<p:dataTable id="tblProdListagem" widgetVar="tabelaProdListagem" value="#{mbProduto.listaProdutos}"
-				var="item" emptyMessage="Nenhum registro encontrado."
-				paginator="true" rows="8"
+			<p:dataTable id="tblProdListagem" widgetVar="tabelaProdListagem"
+				value="#{mbProduto.listaProdutos}" var="item"
+				emptyMessage="Nenhum registro encontrado." paginator="true" rows="8"
 				filteredValue="#{mbProduto.listaProdutosFiltrados}">
-				
+
 				<f:facet name="header">
 					<h:outputText value="Lista de Produtos" />
 				</f:facet>
 
-				<p:column headerText="Código" sortBy="#{item.codigo}" filterBy="#{item.codigo}">
+				<p:column headerText="Código" sortBy="#{item.codigo}"
+					filterBy="#{item.codigo}">
 					<h:outputText value="#{item.codigo}" />
 				</p:column>
 
-				<p:column headerText="Descrição" sortBy="#{item.descricao}" filterBy="#{item.descricao}">
+				<p:column headerText="Descrição" sortBy="#{item.descricao}"
+					filterBy="#{item.descricao}">
 					<h:outputText value="#{item.descricao}" />
 				</p:column>
 
-				<p:column headerText="Qtd." sortBy="#{item.quantidade}" filterBy="#{item.quantidade}">
+				<p:column headerText="Qtd." sortBy="#{item.quantidade}"
+					filterBy="#{item.quantidade}">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Preço" sortBy="#{item.preco}" filterBy="#{item.preco}">
-					<h:outputText value="#{item.preco}"  />
+				<p:column headerText="Preço" sortBy="#{item.preco}"
+					filterBy="#{item.preco}">
+					<h:outputText value="#{item.preco}" />
 				</p:column>
 
-				<p:column headerText="Fabricante" sortBy="#{item.fabricante.nome}" filterBy="#{item.fabricante.nome}">
+				<p:column headerText="Fabricante" sortBy="#{item.fabricante.nome}"
+					filterBy="#{item.fabricante.nome}">
 					<h:outputText value="#{item.fabricante.nome}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{mbProduto.prepararEditarProduto()}"
+						oncomplete="PF('dlgProdEditar').show();"
+						update=":msgGlobal :frmProdEditar:pnlProdEditar">
+
+						<f:setPropertyActionListener value="#{item}"
+							target="#{mbProduto.produto}" />
+
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-trash"
+						oncomplete="PF('dlgProdExcluir').show();"
+						update=":frmProdExcluir:pnlProdExcluir">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{mbProduto.produto}" />
+					</p:commandButton>
 				</p:column>
 
 
@@ -74,7 +99,8 @@
 					<p:inputText value="#{mbProduto.produto.quantidade}" size="10" />
 
 					<p:outputLabel value="Fabricante:" />
-					<p:selectOneMenu value="#{mbProduto.produto.fabricante.codigo}" filter="true" >
+					<p:selectOneMenu value="#{mbProduto.produto.fabricante.codigo}"
+						filter="true">
 
 						<f:selectItem itemValue="" itemLabel="Selecione um fabricante" />
 						<f:selectItems value="#{mbProduto.comboFabricantes}" var="item"
@@ -86,16 +112,91 @@
 				<h:panelGrid columns="2">
 					<p:commandButton value="Gravar"
 						actionListener="#{mbProduto.novoProduto()}"
-						update=":msgGlobal :frmProdListagem:tblProdListagem" 
-						oncomplete="PF('dlgProdNovo').hide(); tabelaProdListagem.clearFilters();" />
+						update=":msgGlobal :frmProdListagem:tblProdListagem"
+						oncomplete="PF('dlgProdNovo').hide();" />
 
 					<p:commandButton value="Cancelar"
 						oncomplete="PF('dlgProdNovo').hide();" />
 
 				</h:panelGrid>
 			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgProdExcluir" closable="false"
+			draggable="false" resizable="false" header="Produto - Excluir">
+			<h:form id="frmProdExcluir">
+				<h:panelGrid id="pnlProdExcluir" columns="2">
+
+					<p:outputLabel value="Código" />
+					<h:outputText value="#{mbProduto.produto.codigo}" />
+
+					<p:outputLabel value="Descrição:" />
+					<h:outputText value="#{mbProduto.produto.descricao}" />
+
+					<p:outputLabel value="Preço:" />
+					<h:outputText value="#{mbProduto.produto.preco}" size="10" />
+
+					<p:outputLabel value="Quantidade:" />
+					<h:outputText value="#{mbProduto.produto.quantidade}" size="10" />
+
+					<p:outputLabel value="Fabricante:" />
+					<h:outputText value="#{mbProduto.produto.fabricante.nome}" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir"
+						actionListener="#{mbProduto.excluirProduto()}"
+						update=":msgGlobal :frmProdListagem:tblProdListagem"
+						oncomplete="PF('dlgProdExcluir').hide();" />
+
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dlgProdExcluir').hide();" />
+
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 
 
+		<p:dialog widgetVar="dlgProdEditar" closable="false" draggable="false"
+			resizable="false" header="Produto - Editar">
+			<h:form id="frmProdEditar">
+				<h:panelGrid id="pnlProdEditar" columns="2">
+
+					<p:outputLabel value="Código" />
+					<h:outputText value="#{mbProduto.produto.codigo}" />
+
+					<p:outputLabel value="Descrição:" />
+					<p:inputText value="#{mbProduto.produto.descricao}" maxlength="50"
+						size="30" />
+
+					<p:outputLabel value="Preço:" />
+					<p:inputText value="#{mbProduto.produto.preco}" size="10" />
+
+					<p:outputLabel value="Quantidade:" />
+					<p:inputText value="#{mbProduto.produto.quantidade}" size="10" />
+
+					<p:outputLabel value="Fabricante:" />
+					<p:selectOneMenu value="#{mbProduto.produto.fabricante.codigo}"
+						filter="true">
+
+						<f:selectItem itemValue="" itemLabel="Selecione um fabricante" />
+						<f:selectItems value="#{mbProduto.comboFabricantes}" var="item"
+							itemValue="#{item.codigo}" itemLabel="#{item.nome}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Editar"
+						actionListener="#{mbProduto.editarProduto()}"
+						update=":msgGlobal :frmProdListagem:tblProdListagem"
+						oncomplete="PF('dlgProdEditar').hide();" />
+
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dlgProdEditar').hide();" />
+
+				</h:panelGrid>
+			</h:form>
 		</p:dialog>
 
 

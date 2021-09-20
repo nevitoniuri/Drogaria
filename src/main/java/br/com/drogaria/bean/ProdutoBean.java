@@ -99,4 +99,51 @@ public class ProdutoBean {
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 	}
+	
+	public void excluirProduto() {
+
+		try {
+			ProdutoDAO pDao = new ProdutoDAO();
+
+			pDao.removerProduto(produto.getCodigo());
+
+			listaProdutos = pDao.listarProdutos();
+
+			JSFUtil.adicionarMensagemSucesso("Produto excluido com sucesso");
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+
+	}
+	
+	public void prepararEditarProduto() {
+		try {
+			FabricanteDAO fDao = new FabricanteDAO();
+			
+			comboFabricantes = fDao.listarFabricantes();
+		} catch (DaoException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+	
+	public void editarProduto() {
+
+		try {
+			ProdutoDAO pDao = new ProdutoDAO();
+
+			pDao.atualizarProduto(produto);
+
+			listaProdutos = pDao.listarProdutos();
+
+			JSFUtil.adicionarMensagemSucesso("Produto atualizado com sucesso");
+
+		} catch (DaoException e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+
+	}
 }
