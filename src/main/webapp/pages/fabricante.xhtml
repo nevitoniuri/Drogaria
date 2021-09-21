@@ -21,12 +21,13 @@
 
 				<f:facet name="header">Listagem de Fabricantes</f:facet>
 
-				<p:column headerText="Código" sortBy="#{item.codigo}" filterBy="#{item.codigo}">
+				<p:column headerText="Código" sortBy="#{item.codigo}"
+					filterBy="#{item.codigo}">
 					<h:outputText value="#{item.codigo}" />
 				</p:column>
 
-				<p:column headerText="Descrição" sortBy="#{item.nome}" filterBy="#{item.nome}"
-					filterMatchMode="contains">
+				<p:column headerText="Descrição" sortBy="#{item.nome}"
+					filterBy="#{item.nome}" filterMatchMode="contains">
 					<h:outputText value="#{item.nome}" />
 				</p:column>
 				<p:column headerText="Opções">
@@ -63,17 +64,20 @@
 			header="Cadastrar novo Fabricante">
 			<h:form id="formFabNovo">
 				<h:panelGrid id="panelFabNovo" columns="2">
-					<p:outputLabel value="Descrição" />
-					<p:inputText size="30" maxlength="50"
-						value="#{mbFabricante.fabricante.nome}" />
+					<p:outputLabel for="txtDescFabNovo" value="Descrição" />
+					<p:inputText id="txtDescFabNovo" size="30" maxlength="50"
+						value="#{mbFabricante.fabricante.nome}" required="true"
+						requiredMessage="O campo descrição é obrigatório." />
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Gravar"
 						actionListener="#{mbFabricante.cadastrarNovoFabricante()}"
-						oncomplete="PF('dlgFabNovo').hide();"
+						oncomplete="verificar(xhr, status, args, 'dlgFabNovo', 'tabelaFabricantes');"
 						update=":formListaFabricantes:tabelaListaFabricantes :msgGlobal" />
-					<p:commandButton value="Cancelar"
-						onclick="PF('dlgFabNovo').hide(); tabelaFabricantes.clearFilters();" />
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgFabNovo').hide();" >
+						<p:resetInput target="panelFabNovo" />
+					</p:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
@@ -84,19 +88,19 @@
 
 			<h:form id="formFabExcluir">
 				<h:panelGrid id="pnlFabExcluir" columns="2">
-					<h:outputLabel value="Código:" />
+					<p:outputLabel value="Código:" />
 					<h:outputText value="#{mbFabricante.fabricante.codigo}" />
 
-					<h:outputLabel value="Descrição: " />
+					<p:outputLabel value="Descrição: " />
 					<h:outputText value="#{mbFabricante.fabricante.nome}" />
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<h:commandButton
+					<p:commandButton
 						actionListener="#{mbFabricante.excluirFabricante()}"
 						value="Excluir"
-						oncomplete="PF('dlgFabExcluir').hide(); tabelaFabricantes.clearFilters();"
+						oncomplete="PF('dlgFabExcluir').hide();"
 						update=":formListaFabricantes:tabelaListaFabricantes :msgGlobal" />
-					<h:commandButton value="Cancelar"
+					<p:commandButton value="Cancelar" process="@this"
 						onclick="PF('dlgFabExcluir').hide();" />
 				</h:panelGrid>
 			</h:form>
@@ -111,17 +115,19 @@
 					<p:outputLabel value="Código :" />
 					<h:outputText value="#{mbFabricante.fabricante.codigo}" />
 
-					<p:outputLabel value="Descrição :" />
-					<h:inputText value="#{mbFabricante.fabricante.nome}" size="30"
-						maxlength="50" />
+					<p:outputLabel for="txtDescProdEditar" value="Descrição :" />
+					<p:inputText id="txtDescProdEditar" value="#{mbFabricante.fabricante.nome}" size="30"
+						maxlength="50" required="true" requiredMessage="O campo Descrição não pode ser vazio." />
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<h:commandButton value="Editar"
+					<p:commandButton value="Editar"
 						actionListener="#{mbFabricante.editarFabricante()}"
-						oncomplete="PF('dlgFabEditar').hide(); tabelaFabricantes.clearFilters();"
+						oncomplete="verificar(xhr, status, args, 'dlgFabEditar', 'tabelaFabricantes');"
 						update=":formListaFabricantes:tabelaListaFabricantes :msgGlobal" />
-					<h:commandButton value="Cancelar"
-						onclick="PF('dlgFabEditar').hide();" />
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgFabEditar').hide();" >
+						<p:resetInput target="pnlFabEditar"/>
+					</p:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
