@@ -92,30 +92,33 @@
 					<p:outputLabel for="txtDescProdNovo" value="Descrição:" />
 					<p:inputText id="txtDescProdNovo"
 						value="#{mbProduto.produto.descricao}" maxlength="50" size="30"
-						required="true" requiredMessage="O campo descrição é obrigatório" />
+						required="true" requiredMessage="O campo Descrição é obrigatório" />
 
 					<p:outputLabel for="txtPrecoProdNovo" value="Preço:" />
 					<p:inputText id="txtPrecoProdNovo"
 						value="#{mbProduto.produto.preco}" size="10" required="true"
-						requiredMessage="O campo preço é obrigatório"
-						converterMessage="Informe um valor válido para o campo preço.">
+						requiredMessage="O campo Preço é obrigatório"
+						converterMessage="Informe um Preço válido"
+						validatorMessage="Informe um Preço entre 0,00 e 9999,99" >
 
-						<f:convertNumber />
+						<f:convertNumber pattern="0.00"/>
+						<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 					</p:inputText>
 
 					<p:outputLabel for="txtQtdProdNovo" value="Quantidade:" />
 					<p:inputText id="txtQtdProdNovo"
 						value="#{mbProduto.produto.quantidade}" size="10" required="true"
-						requiredMessage="O campo quantidade é obrigatório"
-						converterMessage="Informe um valor válido para o campo Quantidade">
-
-						<f:convertNumber pattern="0.00" />
+						requiredMessage="O campo Quantidade é obrigatório"
+						converterMessage="Informe uma Quantidade válida"
+						validatorMessage="Informe uma Quantidade entre 0 e 500">
+					
+						<f:validateLongRange minimum="0" maximum="500" />
 					</p:inputText>
 
 					<p:outputLabel for="cbFabProdNovo" value="Fabricante:" />
 					<p:selectOneMenu id="cbFabProdNovo"
 						value="#{mbProduto.produto.fabricante.codigo}" filter="true"
-						required="true" requiredMessage="O campo fabricante é obrigatório">
+						required="true" requiredMessage="O campo Fabricante é obrigatório">
 
 						<f:selectItem itemValue="" itemLabel="Selecione um fabricante" />
 						<f:selectItems value="#{mbProduto.comboFabricantes}" var="item"
@@ -190,25 +193,34 @@
 					<p:outputLabel for="txtDescProdEditar" value="Descrição:" />
 					<p:inputText id="txtDescProdEditar"
 						value="#{mbProduto.produto.descricao}" maxlength="50" size="30"
-						required="true" requiredMessage="O campo descrição é obrigatório" />
+						required="true" requiredMessage="O campo Descrição é obrigatório" />
 
 					<p:outputLabel for="txtPrecoProdEditar" value="Preço:" />
 					<p:inputText id="txtPrecoProdEditar"
 						value="#{mbProduto.produto.preco}" size="10" required="true"
-						requiredMessage="O campo preço é obrigatório">
+						requiredMessage="O campo Preço é obrigatório"
+						validatorMessage="Informe um Preço entre 0,00 e 9999,99">
 
 						<f:convertNumber pattern="0.00" />
+						<f:validateDoubleRange minimum="0.00" maximum="9999.99" />
 					</p:inputText>
 
 					<p:outputLabel for="txtQtdProdEditar" value="Quantidade:" />
 					<p:inputText id="txtQtdProdEditar"
 						value="#{mbProduto.produto.quantidade}" size="10" required="true"
-						requiredMessage="O campo quantidade é obrigatório" converterMessage="Informe um valor válido para o campo quantidade"/>
+						requiredMessage="O campo Quantidade é obrigatório" 
+						converterMessage="Informe uma Quantidade válida"
+						validatorMessage="Informe uma Quantidade entre 0 e 500." >
+						
+						<f:validateDoubleRange minimum="0" maximum="500" />
+					</p:inputText>
+						
+					
 
 					<p:outputLabel for="cbFabProdEditar" value="Fabricante:" />
 					<p:selectOneMenu id="cbFabProdEditar"
 						value="#{mbProduto.produto.fabricante.codigo}" filter="true"
-						required="true" requiredMessage="O campo fabricante é obrigatório">
+						required="true" requiredMessage="O campo Fabricante é obrigatório">
 
 						<f:selectItem itemValue="" itemLabel="Selecione um fabricante" />
 						<f:selectItems value="#{mbProduto.comboFabricantes}" var="item"
